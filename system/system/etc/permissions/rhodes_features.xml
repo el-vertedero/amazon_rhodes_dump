@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Copyright (c) 2019 - 2021 Amazon.com, Inc. or its affiliates.  All rights reserved.
+   PROPRIETARY/CONFIDENTIAL.  USE IS SUBJECT TO LICENSE TERMS.
+-->
+<permissions>
+    <!-- By declaring the feature here
+         The api PackageManager.hasSystemFeature(String feature) will
+         return true if passed the feature name below.-->
+    <feature name="com.amazon.ffs.enabled"/>
+    <feature name="com.amazon.device.a2dp_sink.enabled"/>
+    <feature name="com.amazon.led_controller.enabled"/>
+    <feature name="android.software.cant_save_state" />
+    <feature name="com.amazon.feature.security.camera.pip.enabled"/>
+    <feature name="com.amazon.reverse_screen_rotation.disabled"/>
+    <feature name="com.amazon.feature.adaptive_color"/>
+    <feature name="com.amazon.feature.minerva_metrics"/>
+</permissions>
+

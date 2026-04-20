@@ -1,0 +1,13 @@
+{
+    "default_model_name": "pryon",
+    "models": {
+        "pryon": {
+            "config_file_path": "pryon.inc"
+        },
+        "playback": {
+            "config_file_path": "playback.config"
+        }
+    },
+    "object_type_name": "ModelSetManifest",
+    "object_type_version": 1
+}

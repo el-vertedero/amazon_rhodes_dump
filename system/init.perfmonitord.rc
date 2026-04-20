@@ -1,0 +1,9 @@
+service perfmonitord /system/bin/perfmonitord
+    user root
+    group system readproc aipc
+    class main
+
+on post-fs
+    insmod /vendor/lib/modules/perfinfo.ko
+    chown root system /proc/perfinfo
+    chmod 0660 /proc/perfinfo

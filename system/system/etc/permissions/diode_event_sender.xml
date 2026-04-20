@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+<library name="com.fireos.sdk.diode_event_sender" file="/system/priv-app/com.amazon.diode.eventsender/com.amazon.diode.eventsender.apk"/>
+<feature name="com.fireos.sdk.diode_event_sender" version="2"/>
+</permissions>

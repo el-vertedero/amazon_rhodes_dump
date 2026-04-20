@@ -1,0 +1,13 @@
+on post-fs-data
+    mkdir /data/misc/blemesh 776 blemesh blemesh
+    chmod 776 /data/misc/blemesh/mesh_cdb.json
+    chmod 776 /data/misc/blemesh/mesh_pdb.json
+    chmod 776 /data/misc/blemesh/mesh_cdb_backup.json
+    chmod 776 /data/misc/blemesh/mesh_pdb.json.tmp
+    start meshmgrservice
+
+service meshmgrservice /system/bin/meshmgrservice
+    class main
+    user blemesh
+    group blemesh
+    seclabel u:r:meshmgrservice:s0

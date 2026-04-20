@@ -1,0 +1,10 @@
+{
+  "self_wake_prevention": {
+    "enabled": true,
+    "shadow_mode": true,
+    "self_wake_eval_duration_msec": 200,
+    "low_band_threshold": 0.27,
+    "high_band_threshold": 0.91,
+    "decision_hangover_afe_frame_count": 1
+  }
+}

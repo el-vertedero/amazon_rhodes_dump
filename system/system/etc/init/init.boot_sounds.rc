@@ -1,0 +1,18 @@
+on boot
+    setprop sys.audio_init false
+
+on early-boot
+##############################################################
+# This service gets called for playing audio during bootanimation
+# We need to play the audio after the audio stack gets initialized
+##############################################################
+service bootsound_anim /system/bin/bootanim_playback.sh
+    class main
+    user media
+    group audio
+    disabled
+    oneshot
+
+on property:sys.audio_init=true
+    start bootsound_anim
+    write /proc/bootprof "INIT: on property:sys.audio_init=true"

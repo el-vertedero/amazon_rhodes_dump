@@ -1,0 +1,14 @@
+on post-fs-data
+    rm /data/acenna/acenna_service.log
+    rm /data/acenna/acenna_service_prev.log
+    rm /data/acenna/acenna_serv.socket
+    mkdir /data/acenna 0777
+    mkdir /data/acenna/models 0777
+
+on boot
+    insmod /vendor/lib/modules/acenna_kmod.ko
+    start acenna_service
+
+service acenna_service /system/bin/acenna_service -l1 -p0 -f /data/acenna/acenna_service.log
+    class main
+    group root vendor_ahe

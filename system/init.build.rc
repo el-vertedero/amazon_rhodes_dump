@@ -1,0 +1,14 @@
+#
+# init.userdebug.rc
+#
+# Copyright (c) 2014 - 2022 Amazon.com, Inc. or its affiliates.
+# All Rights Reserved.
+#
+# PROPRIETARY/CONFIDENTIAL
+#
+# Use is subject to license terms.
+#
+on init
+    # This variable used for native code coverage
+    export GCOV_PREFIX /data/gcov
+

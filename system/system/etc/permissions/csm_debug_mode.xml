@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <!-- This feature governs whether runtime ship mode features
+         will be turned on. Use api
+         PackageManager.hasSystemFeature(String feature) -->
+    <feature name="amazon.speech.csm_debug_mode" />
+</permissions>

@@ -1,0 +1,12 @@
+# Load kernel modules for ADF DSP HAL
+on fs
+    insmod /vendor/lib/modules/acs_audio_client.ko
+    insmod /vendor/lib/modules/voice_dsp_card.ko
+    setprop audio.dsp.afe true
+    start dsp_lifecycle
+
+service dsp_lifecycle /vendor/bin/dsp_lifecycle
+    class main
+    user audio
+    group audio dbus
+

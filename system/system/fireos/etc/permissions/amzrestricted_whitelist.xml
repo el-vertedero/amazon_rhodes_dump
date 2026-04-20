@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Copyright (c) 2020-2022 Amazon.com, Inc. or its affiliates.  All rights reserved.
+   PROPRIETARY/CONFIDENTIAL.  USE IS SUBJECT TO LICENSE TERMS.
+-->
+<fireos-permissions>
+    <amzrestricted-permissions package="com.amazon.edgecvs" >
+        <permission name="com.amazon.permission.SET_RESOLUTION"/>
+        <permission name="com.amazon.permission.SET_FPS"/>
+        <permission name="com.amazon.permission.CONTROL_CAPTURE"/>
+        <permission name="com.amazon.permission.SET_CROP"/>
+        <permission name="com.amazon.permission.SET_AICAMERA_PARAMS"/>
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.theia.sm" >
+        <permission name="com.amazon.permission.SET_CROP"/>
+        <permission name="com.amazon.permission.SET_AICAMERA_PARAMS"/>
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.wifi.sync" >
+        <permission name="amazon.aosp.permission.NETWORK_SETTINGS" />
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.logan" >
+        <permission name="amazon.aosp.permission.INJECT_EVENTS"/>
+        <permission name="com.amazon.permission.INJECT_EVENTS"/>
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.ods.kindleconnect" >
+        <permission name="com.amazon.permission.INJECT_EVENTS"/>
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.tv.launcher" >
+        <permission name="android.permission.INJECT_EVENTS"/>
+        <permission name="amazon.aosp.permission.INJECT_EVENTS"/>
+        <permission name="com.amazon.permission.INJECT_EVENTS"/>
+        <permission name="android.permission.INTERNAL_SYSTEM_WINDOW"/>
+        <permission name="amazon.aosp.permission.INTERNAL_SYSTEM_WINDOW"/>
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.tv.livetv" >
+        <permission name="amazon.aosp.permission.ACCESS_SURFACE_FLINGER"/>
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.tv.parentalcontrols" >
+        <permission name="amazon.aosp.permission.MANAGE_PROFILE_AND_DEVICE_OWNERS"/>
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.tv.settings.v2" >
+        <permission name="com.amazon.tv.settings.permission.BIND_CORE_SETTINGS"/>
+        <permission name="amazon.aosp.permission.NETWORK_SETTINGS" />
+        <permission name="com.amazon.permission.MODIFY_NETWORK_POWER_SETTINGS"/>
+        <permission name="com.amazon.amazonirledmanager.permission.IR_LED" />
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.appaccesskeyprovider" >
+        <permission name="com.amazon.permission.ACCESS_CERTIFICATE"/>
+    </amzrestricted-permissions>
+
+    <amzrestricted-permissions package="com.amazon.ssm" >
+         <permission name="amazon.aosp.permission.NETWORK_SETTINGS"/>
+     </amzrestricted-permissions>
+</fireos-permissions>

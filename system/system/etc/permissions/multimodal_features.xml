@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (c) 2019-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * PROPRIETARY/CONFIDENTIAL
+ -->
+
+<permissions>
+
+    <!-- These are the feature flags relevant to all multimodal devices -->
+
+    <!-- feature to distinguish multimodal devices from other amazon devices -->
+    <feature name="com.amazon.hardware.multimodal"/>
+
+</permissions>

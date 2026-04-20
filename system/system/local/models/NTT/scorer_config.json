@@ -1,0 +1,23 @@
+{
+    "config_type": "tvm_scorer_config",
+    "config_version": 1,
+    "tvm_scorer_config_type": "cnn",
+    "model_graph_filepath": "tvm_graph.json",
+    "model_params_filepath": "tvm_weights.params",
+    "model_lib_filepath": "/system/lib/libtvm_modelops_dvad_v4_r2d2.so",
+    "input_node_label": "input_1",
+    "input_shape": [1, 1, 4, 64],
+    "num_features_input": 64,
+    "initialize_frame_count": 4,
+    "num_dnn_outputs": 2,
+    "output_shape": [1, 1, 2],
+    "keyword_indices_output_shape": [1, 1, 1],
+    "ringbuffer_version": 3,
+    "window_size_num_frames": 104,
+    "pre_initialize_with_digital_silence": true,
+    "inventory_config": {
+      "inventory_size_min": 0,
+      "inventory_size_max": 1,
+      "inventory_strategy": "low_memory"
+    }
+}

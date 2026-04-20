@@ -1,0 +1,75 @@
+{
+    "config_type": "ntt_fusion_processor",
+    "config_version": 2,
+    "dvad_scorer_component": {
+        "component_name": "",
+        "posterior_type": "decoding-scores",
+        "scorer_index": 1
+    },
+    "dvad_start_of_speech_scorer_component": {
+        "component_name": "",
+        "posterior_type": "decoding-scores",
+        "scorer_index": 2
+    },
+    "dvad_start_of_speech_uncertainty_msec": 150,
+    "dvad_window_length_num_frames": 104,
+    "enable_verbose_logging": false,
+    "ntt_mode_configurations": [
+        {
+            "accept_lockout_msec": 1200,
+            "cv_accept_threshold": 0.5,
+            "cv_enabled": true,
+            "dvad_accept_threshold": 0.724,
+            "dvad_client_property_overrides": [
+                {
+                    "accept_threshold": 0.879,
+                    "client_property": "TTSPlayerState",
+                    "condition_function": {
+                        "name": "equals",
+                        "operand": 1
+                    },
+                    "config_type": "client_prop_override",
+                    "disable_ntt_detections": false,
+                    "exponential_decay": 0.0,
+                    "start_lockout_msec": 1750
+                }
+            ],
+            "dvad_left_accept_tolerance_msec": 0,
+            "dvad_right_accept_tolerance_msec": 0,
+            "initialization_lockout_msec": 2500,
+            "ntt_mode": "CONVERSATION",
+            "score_history_msec": 350,
+            "sound_source_localization": {
+                "accept_confidence_threshold": 0.5,
+                "enable": true,
+                "eval_margin_msec": 600,
+                "max_accept_angle": 60,
+                "min_accept_angle": -60,
+                "min_accepted_event_ratio": 0.2,
+                "shadow_mode": true,
+                "wait_for_data_timeout_msec": 0
+            }
+        },
+        {
+            "accept_lockout_msec": 1200,
+            "cv_enabled": false,
+            "dvad_accept_threshold": 0.724,
+            "dvad_client_property_overrides": [
+                {
+                    "accept_threshold": 1.0,
+                    "client_property": "TTSPlayerState",
+                    "condition_function": {
+                        "name": "equals",
+                        "operand": 1
+                    },
+                    "config_type": "client_prop_override",
+                    "disable_ntt_detections": true
+                }
+            ],
+            "initialization_lockout_msec": 80,
+            "ntt_mode": "PROMPT",
+            "score_history_msec": 350
+        }
+    ],
+    "prl_ntt_metadata_version_enabled": false
+}
