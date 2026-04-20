@@ -1,0 +1,10 @@
+/*
+ * Copyright (c) 2020 Amazon.com, Inc. or its affiliates.  All rights reserved.
+ *
+ * PROPRIETARY/CONFIDENTIAL.  USE IS SUBJECT TO LICENSE TERMS.
+*/
+
+service camportal_service /vendor/bin/hw/fireos.hardware.camportal@2.0-service
+    class hal
+    user system
+    group system camera sdcard_rw

@@ -1,0 +1,4 @@
+service voicedsp-hal-1-0 /vendor/bin/hw/fireos.hardware.voicedsp@1.0-service
+    class hal
+    user system
+    group system

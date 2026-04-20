@@ -1,0 +1,98 @@
+import /vendor/etc/init/hw/init.amlogic.usb.rc
+
+on early-init
+    loglevel 3
+
+    mount configfs configfs /sys/kernel/config
+    #mount usbfs none /proc/bus/usb
+    insmod /vendor/lib/modules/mali.ko
+    insmod /vendor/lib/optee.ko
+    insmod /vendor/lib/optee_armtz.ko
+    insmod /vendor/lib/cabc_alg.ko
+    insmod /vendor/lib/aad_alg.ko
+    insmod /vendor/lib/pregm_alg.ko
+    insmod /vendor/lib/speech.ko
+
+on init
+    chmod 666 /dev/tee0
+    chmod 666 /dev/teepriv0
+    start tee_supplicant
+
+on post-fs
+    start tee_hdcp
+
+on boot
+    insmod /vendor/lib/modules/dnlp_alg.ko
+    insmod /vendor/lib/modules/cfg80211.ko
+    insmod /vendor/lib/dovi.ko
+    insmod /vendor/lib/modules/btmtksdio.ko
+    insmod /vendor/lib/sl_hdr.ko
+    insmod /vendor/lib/modules/aml_aucpu.ko
+    insmod /vendor/lib/modules/dvb_demux.ko
+    insmod /vendor/lib/modules/acenna.ko
+    insmod /vendor/lib/modules/iv009_isp_iq.ko
+    insmod /vendor/lib/modules/iv009_isp_lens.ko
+    insmod /vendor/lib/modules/iv009_isp_sensor.ko
+    insmod /vendor/lib/modules/iv009_isp.ko
+
+on boot
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    write /sys/module/decoder_common/parameters/debug_vdetect 0
+    write /sys/class/vdetect/tv_add_vdetect 0
+    write /sys/module/amvdec_mh264/parameters/reorder_dpb_size_margin 9
+    write /sys/module/amvdec_h265/parameters/dynamic_buf_num_margin 9
+    write /sys/module/amvdec_vp9/parameters/max_buf_num 12
+    chmod 666 /dev/galcore
+#HDMI IN
+    chmod 666 /sys/class/sii9233a/port
+    chmod 666 /sys/class/sii9233a/enable
+    chmod 666 /sys/module/tvin_vdin/parameters/max_buf_num
+
+    chmod 0666 /dev/ge2d
+    chmod 0666 /dev/gdc
+    chmod 0666 /dev/amlgdc
+    chmod 0666 /dev/opteearmtz00
+    chmod 666 /dev/acenna0
+    chmod 666 /dev/acenna1
+    chmod 666 /dev/acenna2
+    chmod 666 /dev/acenna3
+    
+    # chmod 0666 /dev/ge2d
+    chmod 666 /dev/cec
+    chmod 666 /dev/dvb0.frontend0
+    chmod 666 /dev/v4l2_frontend
+    chmod 666 /dev/vbi
+    # change node for camportal
+    chmod 666 /dev/input/event0
+    chmod 666 /dev/input/event1
+    # set camprotal default use dewarp linear mode
+    setprop vendor.camportal.use.dewarp true
+    setprop vendor.camportal.use.dewarp.linear true
+    # set decompress mode
+    setprop vendor.camera.decompress.enable true
+    # set camera full size preview/record
+    setprop vendor.amlogic.camera.fullsize.preview false
+    # set camera hal default dewarp/linear mode
+    setprop vendor.camhal.use.dewarp true
+    setprop vendor.camhal.use.dewarp.linear true
+    # set camera hal dptz mode
+    setprop vendor.camhal.use.dewarp.dptz true
+    # brightness sysfs
+    chmod 0666 /sys/class/backlight/aml-bl/brightness
+    chown system system /sys/class/backlight/aml-bl/brightness
+    chown system system /sys/devices/platform/gpio-privacy/state
+    chown system system /sys/devices/platform/gpio-privacy/enable
+
+#NET LED
+    chmod 666 sys/class/leds/net_green/brightness
+    chmod 666 sys/class/leds/net_red/brightness
+
+service tee_supplicant /vendor/bin/tee-supplicant
+	class core
+	oneshot
+	seclabel u:r:tee:s0
+
+service tee_hdcp /vendor/bin/tee_hdcp
+    class main
+    oneshot
+    seclabel u:r:tee:s0

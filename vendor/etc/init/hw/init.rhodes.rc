@@ -1,0 +1,217 @@
+#Rhodes specific init steps go here, included in init.amlogic.rc as init.${ro.product.device}.rc
+import init.amlogic.media.rc
+# WHA
+import init.whad_cc.rc
+
+on post-fs-data
+    start mic_cal_default_init
+    start devcfg
+    start audio_init
+    start audio_sys_init
+
+    # Create directory for audio data used by prebuilt application
+    mkdir /data/vendor/amzn_audio/ 770 audioserver audio
+
+on early-boot
+    # CVS CPU affinity. CPU0-3 are big cores. CPU4-7 are small cores.
+    mkdir /dev/cpuset/cvs
+    chmod 0007 /dev/cpuset/cvs
+    chmod 0006 /dev/cpuset/cvs/tasks
+    write /dev/cpuset/cvs/mems 0
+    write /dev/cpuset/cvs/cpus 3
+    write /dev/cpuset/cvs/cpu_exclusive 1
+    write /dev/cpuset/cvs/sched_load_balance 0
+
+    # Initialize cpusets to boot-time values
+    write /dev/cpuset/foreground/cpus 0-2,4-7
+    write /dev/cpuset/restricted/cpus 0-2,4-7
+    write /dev/cpuset/top-app/cpus 0-2,4-7
+    write /dev/cpuset/background/cpus 0-2,4-7
+    write /dev/cpuset/cpus 0-2,4-7
+    chown system audio /dev/hifi4dsp0
+    chown system audio /dev/hifi4dsp1
+    chmod 0660 /dev/hifi4dsp0
+    chmod 0660 /dev/hifi4dsp1
+
+on boot
+    chown system system /sys/devices/platform/gpio_keypad/privacy_trigger
+    chown system system /sys/devices/platform/gpio_keypad/privacy_timer_on
+    chown system system /sys/devices/platform/gpio_keypad/privacy_state
+    chown system system /dev/amremote
+#INA231 power monitor
+    chown system system /sys/class/hwmon/hwmon0/power1_input
+    chown system system /sys/class/hwmon/hwmon0/update_interval
+    chown system system /sys/class/hwmon/hwmon0/shunt_resistor
+    chown system system /sys/class/amvecm/cabc_aad
+    chmod 0666 /sys/class/amvecm/cabc_aad
+
+on init
+    export DOWNLOAD_CACHE /cache
+
+# Rhodes microphones/speakers and  computer vision works optimally if
+# device is oriented with camera on top.
+# So, support only Landscape and Reverse Portrait modes in BootLogo,
+# BootAnimation, OTA/Recovery
+# If Bootloader sets orientation to Portrait(1) or Reverse Portrait(3)
+# set ro.fireos.display.boot.rotation to Reverse Portrait(270)
+# If Bootloader sets orientation to Landscape(0) or Reverse Landscape(2)
+# no action needed, as by default display is oriented to landscape.
+on init && property:ro.boot.device_orientation=3
+    setprop ro.fireos.display.boot.rotation 270
+
+on init && property:ro.boot.device_orientation=1
+    setprop ro.fireos.display.boot.rotation 270
+
+on fs
+    #wait /dev/device-mapper 20
+    mount_all /vendor/etc/fstab.amlogic --early
+    exec /system/bin/resize2fs -f /dev/block/data
+    mount_all /vendor/etc/fstab.amlogic --late
+    setprop ro.crypto.fuse_sdcard true
+    swapon_all /vendor/etc/fstab.amlogic
+
+#Insmod the Wifi Remote driver when Wifi P2P group is created
+on property:wlan.interface.p2p.group=*
+    start ozwpan
+
+on post-fs-data
+   #verity_update_state
+   # AmazonLedBrightnessController
+    chown system system /sys/class/leds/muteled/brightness
+
+on post-fs
+    write /sys/class/gpio/export "507"
+    write /sys/class/gpio/gpio507/direction "out"
+    chmod 0664 /sys/class/gpio/gpio507/value
+    restorecon /sys/class/gpio/gpio507/value
+    restorecon /sys/class/gpio/gpio507/direction
+
+on late-fs
+  # boot time fs tune
+    # boot time fs tune
+    write /sys/block/mmcblk0/queue/read_ahead_kb 2048
+    write /sys/block/dm-2/queue/read_ahead_kb 2048
+    write /sys/block/dm-1/queue/read_ahead_kb 2048
+
+on property:dev.bootcomplete=1
+    start boot_complete
+    write /sys/block/mmcblk0/queue/read_ahead_kb 256
+    write /sys/block/dm-2/queue/read_ahead_kb 256
+    write /sys/block/dm-1/queue/read_ahead_kb 256
+
+#donotdisturb ECS feature for bootanimation audio
+on property:persist.sys.ecs.SCREEN_IDLE=1
+    setprop persist.sys.bootanim.play_sound 0
+
+on property:persist.sys.ecs.SCREEN_IDLE=0
+    setprop persist.sys.bootanim.play_sound 1
+
+#boot complete
+service boot_complete /system/bin/boot_complete.sh
+    disabled
+    user root
+    oneshot
+
+#audio system init
+service audio_sys_init /system/bin/audio_sys_init.sh
+    disabled
+    user root
+    oneshot
+
+# Audio init
+#service audio_init /vendor/bin/audio_init.sh
+#    disabled
+#    oneshot
+#    user root
+#    group audio
+
+# service to populate NTS property
+service devcfg /vendor/bin/devcfg.sh
+    class main
+    group system
+    oneshot
+    disabled
+    seclabel u:r:devcfg:s0
+
+# Mic default calibration init
+service mic_cal_default_init /vendor/bin/mic_cal_default_init.sh
+    class main
+    group system
+    oneshot
+    disabled
+    seclabel u:r:mic_cal_default_init:s0
+
+on property:sys.boot_completed=1
+    verity_update_state
+    start amzn_drmprov
+    # update cpuset now that processors are up
+    # Foreground should contain most cores (7 is reserved for top-app)
+    write /dev/cpuset/foreground/cpus 0-2,4-6
+
+    # top-app gets all cpus (including reserved #7)
+    write /dev/cpuset/top-app/cpus 0-2,4-7
+
+    #background contains a small subset (generally one little core)
+    write /dev/cpuset/background/cpus 4
+
+    # add system-background cpuset, a new cpuset for system services
+    # that should not run on larger cores
+    # system-background is for system tasks that should only run on
+    # little cores, not on bigs to be used only by init
+    write /dev/cpuset/system-background/cpus 4-7
+
+service ozwpan /system/bin/ozwpan.sh
+    disabled
+    oneshot
+    user root
+
+on property:nvcfg.need_remount=1
+    mount ext4 /dev/block/nvcfg /mnt/vendor/nvcfg
+
+on property:vold.post_fs_data_done=1
+    start nvcfg_check
+
+service nvcfg_check /vendor/bin/nvcfg_check.sh
+    user root
+    disabled
+    oneshot
+    seclabel u:r:tee:s0
+
+service amzn_drmprov /vendor/bin/amzn_drmprov_check
+    user root
+    group mediadrm
+    oneshot
+    disabled
+    seclabel u:r:amzn_drmprov:s0
+
+# Import perfmonitord
+import init.perfmonitord.rc
+
+# The following change requires that the corresponding change be made in the
+# device's device_common.mk file, and is required because "ip_local_reserved_ports"
+# is too long. Additional ephemeral port reservations should be added to the
+# ip_loc_res_ports var in the system.prop
+on property:sys.sysctl.ip_loc_res_ports=*
+    write /proc/sys/net/ipv4/ip_local_reserved_ports ${sys.sysctl.ip_loc_res_ports}
+
+service disable_fr /vendor/bin/a4b_factory_reset.sh Disable
+    class core
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel u:r:a4b_factory_reset:s0
+
+service enable_fr /vendor/bin/a4b_factory_reset.sh Enable
+    class core
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel u:r:a4b_factory_reset:s0
+
+on property:persist.vendor.a4b_fr_disable=1
+    start disable_fr
+
+on property:persist.vendor.a4b_fr_disable=0
+    start enable_fr

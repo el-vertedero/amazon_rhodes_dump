@@ -1,0 +1,116 @@
+#line 1 "device/amlogic/common_pop1r/sepolicy/property_contexts"
+media.                  u:object_r:media_prop:s0
+ro.media.               u:object_r:media_prop:s0
+sys.media.              u:object_r:media_prop:s0
+sys.subtitle.           u:object_r:media_prop:s0
+ro.audio.               u:object_r:media_prop:s0
+ro.af.                  u:object_r:media_prop:s0
+persist.vendor.audio.   u:object_r:media_prop:s0
+persist.vendor.media.   u:object_r:media_prop:s0
+persist.vendor.bt_vendor       u:object_r:vendor_platform_prop:s0
+persist.vendor.btmodule u:object_r:vendor_platform_prop:s0
+drm.                    u:object_r:media_prop:s0
+iptv.middle.softdemux   u:object_r:media_prop:s0
+audio.                  u:object_r:audio_prop:s0
+ubootenv.               u:object_r:uboot_prop:s0
+ro.ubootenv.            u:object_r:uboot_prop:s0
+snd.                    u:object_r:tv_config_prop:s0
+tv.                     u:object_r:tv_prop:s0
+persist.tv.             u:object_r:tv_prop:s0
+persist.vendor.tv.      u:object_r:tv_prop:s0
+ro.hdmi.                u:object_r:tv_prop:s0
+vendor.tv.              u:object_r:tv_prop:s0
+vendor.tv.dtv.          u:object_r:tv_prop:s0
+vendor.tv.dtv.cas.      u:object_r:tv_prop:s0
+vendor.tv.dtv.dmx.      u:object_r:tv_prop:s0
+vendor.tv.dtv.tf.       u:object_r:tv_prop:s0
+vendor.tv.dtv.dvr.      u:object_r:tv_prop:s0
+vendor.tv.dtv.dvr.mode         u:object_r:tv_prop:s0
+bcmdl_status            u:object_r:bcmdl_prop:s0
+wc_transport            u:object_r:bluetooth_prop:s0
+rc_hidraw_fd            u:object_r:bluetooth_prop:s0
+ro.rfkilldisabled      u:object_r:bluetooth_prop:s0
+vendor.display-size     u:object_r:netflix_prop:s0
+persist.vendor.hwc.keystone    u:object_r:vendor_persist_prop:s0
+persist.vendor.hwc.keystone.debug    u:object_r:vendor_persist_prop:s0
+ro.vendor.nrdp.modelgroup     u:object_r:netflix_prop:s0
+ro.vendor.nrdp.         u:object_r:netflix_prop:s0
+ro.vendor.platform      u:object_r:vendor_platform_prop:s0
+persist.vendor.sys      u:object_r:vendor_persist_prop:s0
+vendor.sys              u:object_r:vendor_platform_prop:s0
+vendor.filesystem.      u:object_r:vendor_platform_prop:s0
+audio.dsp.afe           u:object_r:vendor_platform_prop:s0
+ro.vendor.app           u:object_r:vendor_app_prop:s0
+ro.net.pppoe		  u:object_r:net_pppoe_prop:s0
+persist.miracast.hdcp2  u:object_r:miracast_prop:s0
+ro.boot.oem.                 u:object_r:oem_prop:s0
+ro.hdmi.set_menu_language u:object_r:cec_prop:s0
+#service.bootanim.       u:object_r:service_bootanim_prop:s0
+vendor.sys.usb.card      u:object_r:usb_audio_prop:s0
+vendor.sys.usb.device    u:object_r:usb_audio_prop:s0
+dolby.audio.            u:object_r:dolby_prop:s0
+amazon.remote.          u:object_r:amzn_remote_prop:s0
+# wifi_log_levels
+vendor.wifi.wlan0.      u:object_r:wifi_log_levels_prop:s0
+# fos_flags
+vendor.amazon.fos_flags.wipe u:object_r:shell_prop:s0
+
+persist.dolby. u:object_r:exported_system_prop:s0
+persist.audio.proxy. u:object_r:exported_system_prop:s0
+tunnelmode. u:object_r:exported_system_prop:s0
+apts_tune. u:object_r:exported_system_prop:s0
+audio.af.sink. u:object_r:vendor_audio_dump_prop:s0
+sys.audio.bootanim u:object_r:exported_system_prop:s0
+vendor.af.resouce. u:object_r:vendor_audio_dump_prop:s0
+vendor.persist.af. u:object_r:vendor_audio_dump_prop:s0
+vendor.audio.hw.bypass u:object_r:vendor_audio_dump_prop:s0
+vendor.persist.rm.debug. u:object_r:vendor_audio_dump_prop:s0
+vendor.streamout.       u:object_r:vendor_audio_dump_prop:s0
+vendor.streamin.        u:object_r:vendor_audio_dump_prop:s0
+vendor.streamhfp.       u:object_r:vendor_audio_dump_prop:s0
+persist.asp.            u:object_r:vendor_audio_dump_prop:s0
+
+#allow deep colors property to be accessible between system and vendor
+persist.sys.open.       u:object_r:exported_system_prop:s0
+persist.sys.hdmi.       u:object_r:exported_system_prop:s0
+ro.boot.secure_cpu      u:object_r:exported_default_prop:s0
+ro.fireos.display.boot.rotation      u:object_r:exported_default_prop:s0
+
+# amzn dha self test
+ro.amzn_dha.            u:object_r:amzn_dha_prop:s0
+init.svc.amzn_drmprov   u:object_r:amzn_drmprov_status_prop:s0
+#line 1 "device/amazon/common/sepolicy/amazon_hal/property_contexts"
+#
+# Copyright (c) 2018-2022 Amazon.com, Inc. or its affiliates.  All rights reserved.
+# PROPRIETARY/CONFIDENTIAL.  USE IS SUBJECT TO LICENSE TERMS.
+#
+
+ro.amzn_drm. u:object_r:amzn_drm_prop:s0
+ro.amzn_xo.value u:object_r:amzn_xo_prop:s0
+sys.amzn_drm.backup.status u:object_r:amzn_drmprov_prop:s0
+vendor.amzn_drm.backup.trigger u:object_r:amzn_drmprov_prop:s0
+vendor.amzn_drm.clear_cache.pr u:object_r:amzn_drmprov_prop:s0
+# Below is different from the above amzn_drm_prop, because we need
+# vendor_init to set the property.
+ro.vendor.amzn_drm_restore_from u:object_r:amzn_drm_config_prop:s0
+# vendor_init need to set it to 0 (default value),
+# and amzn_drmprov_check needs to read it
+persist.drmprov_check.no_skip u:object_r:amzn_drm_config_prop:s0
+persist.sys.amzn_drm.skip_mask u:object_r:amzn_drm_prop:s0
+persist.wifi.rssi.             u:object_r:persist_wifi_rssi_prop:s0
+persist.vendor.zigbee. u:object_r:amzn_zigbee_prop:s0
+persist.zigbee. u:object_r:amzn_zigbee_prop:s0
+vendor.zigbee. u:object_r:amzn_zigbee_prop:s0
+zigbee. u:object_r:amzn_zigbee_prop:s0
+ro.audio.xml_effect.path u:object_r:audio_config_prop:s0 exact string
+#line 1 "device/amazon/rhodes/sepolicy/amzn_asp/property_contexts"
+persist.vendor.a4b_fr_disable  u:object_r:exported_system_prop:s0
+#line 1 "device/amazon/common/sepolicy/audio/property_contexts"
+persist.asp.asr.passthrough             u:object_r:persist_asp_pipeline_passthrough_prop:s0
+persist.asp.voice.passthrough           u:object_r:persist_asp_pipeline_passthrough_prop:s0
+persist.asp.speaker.passthrough         u:object_r:persist_asp_pipeline_passthrough_prop:s0
+
+#line 1 "system/sepolicy/reqd_mask/property_contexts"
+# empty property_contexts file - this file is used to generate an empty
+# non-platform property context for devices without any property_contexts
+# customizations.

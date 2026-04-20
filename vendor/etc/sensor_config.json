@@ -1,0 +1,59 @@
+/*
+ * sensor_config.json
+ *
+ * Copyright (c) 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved
+ *
+ * PROPRIETARY/CONFIDENTIAL
+ *
+ * Use is subject to license terms.
+ */
+
+/*
+ * Refer to wiki link:
+ * https://wiki.labcollab.net/confluence/display/Doppler/How+to+write+sensor_config.json+file
+ * for how to write sensor_config.json file
+ */
+
+{
+    "sensorDevice": [{
+            "sensorName": "tcs3400_als",
+            "vendorName": "AMS",
+            "type": "rgbw",
+            "resolution": 0.01,
+            "minDelay": 700000,
+            "isVirtual": false,
+            "inputSysPath": "/sys/devices/virtual/input",
+            "channelNames": [
+                "als_red",
+                "als_green",
+                "als_blue",
+                "als_clear",
+                "als_itime",
+                "als_gain"
+            ],
+            "needsEnable": true,
+            "enablePairs": [{
+                "name": "als_enable",
+                "value": "1"
+            },
+            {
+                /* change to use clear channel */
+                "name": "ir_toggle_mode",
+                "value": "0"
+            }
+            ],
+            "needsRefresh": false,
+            "needsParsing": false
+        },
+        {
+            "sensorName": "virtual_als",
+            "vendorName": "Amazon",
+            "type": "light",
+            "resolution": 0.01,
+            "isVirtual": true,
+            "baseSensor": [
+                0
+            ]
+        }
+    ]
+}
