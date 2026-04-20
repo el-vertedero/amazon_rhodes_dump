@@ -1,0 +1,14 @@
+# rhodes-userdebug 9 PMAIN1.7389P 0027113872640 amz-d,dev-keys
+- manufacturer: amazon
+- platform: rhodes
+- codename: rhodes
+- flavor: rhodes-userdebug
+- release: 9
+- id: PMAIN1.7389P
+- incremental: 0027113872770
+- tags: amz-d,dev-keys
+- fingerprint: Amazon/rhodes/rhodes:9/PMAIN1.7389P/0027113872640:userdebug/amz-d,dev-keys
+- is_ab: false
+- brand: Amazon
+- branch: rhodes-userdebug-9-PMAIN1.7389P-0027113872640-amz-d,dev-keys
+- repo: amazon_rhodes_dump
