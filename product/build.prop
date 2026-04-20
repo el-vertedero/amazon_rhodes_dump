@@ -1,0 +1,11 @@
+
+ro.product.build.date=Mon Jan 30 08:50:51 UTC 2023
+ro.product.build.date.utc=1675068651
+ro.product.build.fingerprint=Amazon/rhodes/rhodes:9/PMAIN1.7389P/0027113872640:userdebug/dev-keys
+#
+# ADDITIONAL PRODUCT PROPERTIES
+#
+persist.sys.recovery.batt_level=0
+persist.bluetooth.enablenewavrcp=false
+persist.bluetooth.disableabsvol=true
+ro.product.config.type=A2UONLFQW0PADH
